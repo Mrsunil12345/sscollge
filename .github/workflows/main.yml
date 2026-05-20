@@ -1,0 +1,29 @@
+name: node js code pratice
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  nodejsbuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: install dependency
+        uses: actions/setup-node@v4
+
+      - name: check test cases
+        run: npm test
+
+      - name: build repo
+        run: npm run build
+
+      - name: upload repo
+        uses: actions/upload-artifact@v7
+        with: 
+         name: nodejs build
+         path: /dist/index.html
